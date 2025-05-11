@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+
+        .page-title {
+            margin: 20px 0;
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .settings-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .settings-sidebar {
+            width: 250px;
+            background-color: #f9f9f9;
+            padding: 20px 0;
+            border-right: 1px solid #eee;
+            float: left;
+            height: 100%;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .settings-nav {
+            list-style: none;
+        }
+
+        .settings-nav li {
+            margin-bottom: 5px;
+        }
+
+        .settings-nav a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .settings-nav a:hover,
+        .settings-nav a.active {
+            background-color: #eef2f7;
+            border-left-color: #3498db;
+            color: #3498db;
+        }
+
+        .settings-nav i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .settings-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .settings-section {
+            margin-bottom: 40px;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .settings-heading {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .current-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #eee;
+        }
+
+        .avatar-upload {
+            flex: 1;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #e9e9e9;
+        }
+
+        .upload-note {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.toggle-slider {
+            background-color: #2ecc71;
+        }
+
+        input:focus+.toggle-slider {
+            box-shadow: 0 0 1px #2ecc71;
+        }
+
+        input:checked+.toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .setting-option:last-child {
+            border-bottom: none;
+        }
+
+        .setting-description {
+            flex: 1;
+        }
+
+        .setting-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .setting-subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .section-note {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f1f1f1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .remove-skill {
+            cursor: pointer;
+            margin-left: 8px;
+            color: #7f8c8d;
+        }
+
+        .remove-skill:hover {
+            color: #e74c3c;
+        }
+
+        .skill-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .skill-input {
+            flex: 1;
+        }
+
+        .btn-add-skill {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-add-skill:hover {
+            background-color: #27ae60;
+        }
+
+        .certification-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .certification-info {
+            flex: 1;
+        }
+
+        .certification-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .certification-meta {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .certification-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-icon {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #7f8c8d;
+            background-color: transparent;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+
+        .btn-icon:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-edit:hover {
+            color: #3498db;
+        }
+
+        .btn-delete:hover {
+            color: #e74c3c;
+        }
+
+        .add-new-section {
+            margin-top: 20px;
+        }
+
+        .clickable-text {
+            color: #3498db;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .clickable-text:hover {
+            text-decoration: underline;
+        }
+
+        .password-requirements {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .requirement i {
+            color: #2ecc71;
+        }
+
+        .requirement.unmet i {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .settings-sidebar {
+                float: none;
+                width: 100%;
+                min-height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .settings-content {
+                margin-left: 0;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .avatar-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .current-avatar {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .header-content {
+                justify-content: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">ProfileHub</div>
+            <div class="nav-links">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+                <a href="#"><i class="fas fa-envelope"></i> Messages</a>
+                <a href="#" class="active"><i class="fas fa-user"></i> Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Profile Settings</h1>
+
+        <div class="settings-container">
+            <div class="settings-sidebar">
+                <ul class="settings-nav">
+                    <li><a href="#" class="active"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="#"><i class="fas fa-lock"></i> Security</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <li><a href="#"><i class="fas fa-globe"></i> Privacy</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> Social Links</a></li>
+                    <li><a href="#"><i class="fas fa-briefcase"></i> Professional</a></li>
+                    <li><a href="#"><i class="fas fa-credit-card"></i> Billing</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+                </ul>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h2 class="settings-heading">Profile Information</h2>
+                    <div class="avatar-section">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture"
+                            class="current-avatar">
+                        <div class="avatar-upload">
+                            <label class="upload-btn"><i class="fas fa-upload"></i> Upload New Photo</label>
+                            <p class="upload-note">Recommended size: 200x200 pixels, JPG, PNG or GIF</p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" id="firstName" class="form-control" value="John">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" id="lastName" class="form-control" value="Doe">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio" class="form-label">Bio</label>
+                        <textarea id="bio" class="form-control"
+                            rows="4">Frontend developer with 5+ years of experience building responsive web applications. Passionate about UX design and accessibility.</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" id="location" class="form-control" value="San Francisco, CA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website" class="form-label">Website</label>
+                        <input type="url" id="website" class="form-control" value="https://johndoe.dev">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2 class="settings-heading">Skills & Expertise</h2>
+                    <div class="skill-tags">
+                        <div class="skill-tag">
+                            JavaScript <span class="remove-skill"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill-tag">
+                            React <span class="remove-skill"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill-tag">
+                            CSS <span class="remove-skill"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill-tag">
+                            HTML5 <span class="remove-skill"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill-tag">
+                            Node.js <span class="remove-skill"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="skill-input-container">
+                        <input type="text" class="form-control skill-input" placeholder="Add a new skill">
+                        <button class="btn btn-add-skill">Add</button>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2 class="settings-heading">Certifications</h2>
+                    <div class="certification-item">
+                        <div class="certification-info">
+                            <div class="certification-name">AWS Certified Developer - Associate</div>
+                            <div class="certification-meta">Amazon Web Services • Issued June 2021 • Expires June 2024
+                            </div>
+                        </div>
+                        <div class="certification-actions">
+                            <button class="btn-icon btn-edit"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="certification-item">
+                        <div class="certification-info">
+                            <div class="certification-name">Google Cloud Professional Data Engineer</div>
+                            <div class="certification-meta">Google Cloud • Issued March 2022 • Expires March 2025</div>
+                        </div>
+                        <div class="certification-actions">
+                            <button class="btn-icon btn-edit"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="add-new-section">
+                        <span class="clickable-text"><i class="fas fa-plus"></i> Add New Certification</span>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2 class="settings-heading">Privacy Settings</h2>
+                    <div class="section-note">
+                        Control who can see your profile information and activity. These settings affect how others view
+                        your profile.
+                    </div>
+
+                    <div class="setting-option">
+                        <div class="setting-description">
+                            <div class="setting-title">Make profile public</div>
+                            <div class="setting-subtitle">Your profile will be visible to anyone on the internet</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-option">
+                        <div class="setting-description">
+                            <div class="setting-title">Show email address</div>
+                            <div class="setting-subtitle">Allow others to see your email address</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-option">
+                        <div class="setting-description">
+                            <div class="setting-title">Show last seen</div>
+                            <div class="setting-subtitle">Display when you were last active on your profile</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-danger">Cancel</button>
+                    <button class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

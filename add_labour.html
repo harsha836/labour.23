@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Labour</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .rate-calculator {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+        }
+
+        .calculated-cost {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add Labour Entry</h1>
+
+        <form id="labourForm">
+            <div class="row">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="worker">Worker Name</label>
+                    <input type="text" id="worker" name="worker" placeholder="Enter worker name" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="project">Project</label>
+                    <select id="project" name="project" required>
+                        <option value="">Select a project</option>
+                        <option value="project1">Project 1</option>
+                        <option value="project2">Project 2</option>
+                        <option value="project3">Project 3</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task">Task</label>
+                    <select id="task" name="task" required>
+                        <option value="">Select a task</option>
+                        <option value="carpentry">Carpentry</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="painting">Painting</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" id="otherTaskContainer" style="display: none;">
+                <label for="otherTask">Specify Task</label>
+                <input type="text" id="otherTask" name="otherTask" placeholder="Describe the task">
+            </div>
+
+            <div class="rate-calculator">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="hours">Hours Worked</label>
+                        <input type="number" id="hours" name="hours" min="0" step="0.5" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hourlyRate">Hourly Rate ($)</label>
+                        <input type="number" id="hourlyRate" name="hourlyRate" min="0" step="0.5" placeholder="0"
+                            required>
+                    </div>
+                </div>
+                <div class="calculated-cost" id="calculatedCost">Total: $0.00</div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Enter any additional details"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Labour Entry</button>
+        </form>
+    </div>
+
+    <script>
+        // Show/hide "other task" input based on task selection
+        document.getElementById('task').addEventListener('change', function () {
+            const otherTaskContainer = document.getElementById('otherTaskContainer');
+            if (this.value === 'other') {
+                otherTaskContainer.style.display = 'block';
+            } else {
+                otherTaskContainer.style.display = 'none';
+            }
+        });
+
+        // Calculate total cost when hours or rate changes
+        function calculateCost() {
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const rate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const total = hours * rate;
+            document.getElementById('calculatedCost').textContent = Total: $${ total.toFixed(2) };
+        }
+
+        document.getElementById('hours').addEventListener('input', calculateCost);
+        document.getElementById('hourlyRate').addEventListener('input', calculateCost);
+
+        // Handle form submission
+        document.getElementById('labourForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const formData = new FormData(this);
+            const labourData = {};
+
+            formData.forEach((value, key) => {
+                labourData[key] = value;
+            });
+
+            // Calculate total cost
+            const hours = parseFloat(labourData.hours);
+            const rate = parseFloat(labourData.hourlyRate);
+            labourData.totalCost = hours * rate;
+
+            // Here you would typically send this data to a server
+            console.log('Labour entry submitted:', labourData);
+
+            // Show success message (in a real app, you might want to do this after confirmation from the server)
+            alert('Labour entry successfully added!');
+
+            // Reset the form
+            this.reset();
+            document.getElementById('calculatedCost').textContent = 'Total: $0.00';
+            document.getElementById('otherTaskContainer').style.display = 'none';
+        });
+
+        // Set default date to today
+        document.getElementById('date').valueAsDate = new Date();
+    </script>
+</body>
+
+</html>

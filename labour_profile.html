@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+
+        .profile-container {
+            display: flex;
+            margin-top: 30px;
+            gap: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        .profile-sidebar {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .profile-main {
+            flex: 2;
+        }
+
+        .profile-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f5f5f5;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c0392b;
+        }
+
+        .profile-details h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .profile-status {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .info-section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            color: #2c3e50;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            display: block;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background-color: #f1f1f1;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .work-history-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .work-history-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .work-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+
+        .work-date {
+            color: #7f8c8d;
+        }
+
+        .work-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            border-bottom-color: #3498db;
+            color: #3498db;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+
+            .profile-sidebar {
+                max-width: 100%;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">WorkForce Pro</div>
+            <div class="nav-links">
+                <a href="labour_list.html"><i class="fas fa-users"></i> Labour List</a>
+                <a href="profile_settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-image">
+                    <img src="/api/placeholder/400/400" alt="Profile Picture">
+                </div>
+                <div class="profile-actions">
+                    <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i> Edit Profile</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-file-alt"></i> Download Resume</a>
+                    <a href="#" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+
+            <div class="profile-main">
+                <div class="profile-details">
+                    <h1>John Smith</h1>
+                    <div class="profile-status">Available for Work</div>
+
+                    <div class="tabs">
+                        <div class="tab active" data-tab="basic-info">Basic Information</div>
+                        <div class="tab" data-tab="work-history">Work History</div>
+                        <div class="tab" data-tab="skills">Skills & Certifications</div>
+                    </div>
+
+                    <div class="tab-content active" id="basic-info">
+                        <div class="info-section">
+                            <h2>Personal Details</h2>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Full Name</span>
+                                    <span class="info-value">John Robert Smith</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Age</span>
+                                    <span class="info-value">32 years</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Location</span>
+                                    <span class="info-value">Portland, Oregon</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Phone</span>
+                                    <span class="info-value">(503) 555-7890</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Email</span>
+                                    <span class="info-value">john.smith@email.com</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Experience</span>
+                                    <span class="info-value">8 years</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h2>Employment Information</h2>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Labour ID</span>
+                                    <span class="info-value">LAB-2023-1072</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Specialization</span>
+                                    <span class="info-value">Construction, Carpentry</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Current Rate</span>
+                                    <span class="info-value">$28/hour</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Availability</span>
+                                    <span class="info-value">Full-time, Weekdays</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Union Member</span>
+                                    <span class="info-value">Yes - Local 503</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Start Date</span>
+                                    <span class="info-value">April 15, 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="work-history">
+                        <div class="info-section">
+                            <h2>Previous Assignments</h2>
+
+                            <div class="work-history-item">
+                                <div class="work-history-header">
+                                    <span class="work-title">Lead Carpenter - Downtown Office Project</span>
+                                    <span class="work-date">Jan 2023 - Mar 2023</span>
+                                </div>
+                                <p class="work-description">
+                                    Managed a team of 5 carpenters for the interior renovation of a 15-story office
+                                    building.
+                                    Responsible for custom cabinetry, trim work, and architectural woodwork
+                                    installations.
+                                    Completed project ahead of schedule with client commendation.
+                                </p>
+                            </div>
+
+                            <div class="work-history-item">
+                                <div class="work-history-header">
+                                    <span class="work-title">Carpenter - Riverside Apartments</span>
+                                    <span class="work-date">Aug 2022 - Dec 2022</span>
+                                </div>
+                                <p class="work-description">
+                                    Performed framing, exterior finishing, and siding installation for a 200-unit
+                                    apartment complex.
+                                    Coordinated with other trades to ensure proper sequencing of work. Maintained high
+                                    quality
+                                    standards throughout the project.
+                                </p>
+                            </div>
+
+                            <div class="work-history-item">
+                                <div class="work-history-header">
+                                    <span class="work-title">General Construction - City Library Renovation</span>
+                                    <span class="work-date">Mar 2022 - Jul 2022</span>
+                                </div>
+                                <p class="work-description">
+                                    Participated in the historical renovation of the city's main library. Tasks included
+                                    demolition,
+                                    structural repairs, and finish carpentry. Worked closely with preservation
+                                    specialists to maintain
+                                    historical integrity of the building.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="skills">
+                        <div class="info-section">
+                            <h2>Skills</h2>
+                            <div class="skills-list">
+                                <span class="skill-tag">Framing</span>
+                                <span class="skill-tag">Finish Carpentry</span>
+                                <span class="skill-tag">Blueprint Reading</span>
+                                <span class="skill-tag">Cabinetry</span>
+                                <span class="skill-tag">Drywall Installation</span>
+                                <span class="skill-tag">Woodworking</span>
+                                <span class="skill-tag">Power Tools</span>
+                                <span class="skill-tag">Project Planning</span>
+                                <span class="skill-tag">Team Leadership</span>
+                                <span class="skill-tag">Safety Procedures</span>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h2>Certifications</h2>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">OSHA 30-Hour</span>
+                                    <span class="info-value">Expires: May 2025</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">First Aid/CPR</span>
+                                    <span class="info-value">Expires: February 2024</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Scaffold Safety</span>
+                                    <span class="info-value">Completed: 2022</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Forklift Operator</span>
+                                    <span class="info-value">Expires: October 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to current tab and content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

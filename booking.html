@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Booking | Labour Connect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="client_dashboard.html" class="font-bold text-xl">Labour Connect</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="notifications.html" class="relative">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span
+                            class="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                    </a>
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1">
+                            <img src="/api/placeholder/40/40" alt="User Avatar" class="rounded-full h-8 w-8">
+                            <span>John Doe</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block z-10">
+                            <a href="profile_settings.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                <i class="fas fa-user-cog mr-2"></i> Profile Settings
+                            </a>
+                            <a href="change_password.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                <i class="fas fa-lock mr-2"></i> Change Password
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-6">
+            <a href="client_dashboard.html" class="text-blue-600 hover:text-blue-800">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+            </a>
+            <h1 class="text-2xl font-bold text-gray-800 mt-4">Create New Booking</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <form id="bookingForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Step 1: Job Details -->
+                    <div class="md:col-span-2 mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">1. Job Details</h2>
+                        <div class="mb-4">
+                            <label for="jobTitle" class="block text-gray-700 font-medium mb-2">Job Title</label>
+                            <input type="text" id="jobTitle" name="jobTitle" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="e.g., Plumbing Repair, Electrical Work, etc.">
+                        </div>
+                        <div class="mb-4">
+                            <label for="jobCategory" class="block text-gray-700 font-medium mb-2">Job Category</label>
+                            <select id="jobCategory" name="jobCategory" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="carpentry">Carpentry</option>
+                                <option value="plumbing">Plumbing</option>
+                                <option value="electrical">Electrical</option>
+                                <option value="masonry">Masonry</option>
+                                <option value="painting">Painting</option>
+                                <option value="landscaping">Landscaping</option>
+                                <option value="general">General Labour</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="jobDescription" class="block text-gray-700 font-medium mb-2">Job
+                                Description</label>
+                            <textarea id="jobDescription" name="jobDescription" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                rows="4" placeholder="Describe the job in detail..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Date and Time -->
+                    <div class="md:col-span-2 mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">2. Schedule</h2>
+                        <div class="mb-4">
+                            <label for="jobDate" class="block text-gray-700 font-medium mb-2">Date</label>
+                            <input type="text" id="jobDate" name="jobDate" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Select a date">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="startTime" class="block text-gray-700 font-medium mb-2">Start Time</label>
+                                <input type="text" id="startTime" name="startTime" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Select start time">
+                            </div>
+                            <div>
+                                <label for="endTime" class="block text-gray-700 font-medium mb-2">End Time</label>
+                                <input type="text" id="endTime" name="endTime" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Select end time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Location -->
+                    <div class="md:col-span-2 mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">3. Location</h2>
+                        <div class="mb-4">
+                            <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                            <input type="text" id="address" name="address" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter the job address">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="city" class="block text-gray-700 font-medium mb-2">City</label>
+                                <input type="text" id="city" name="city" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label for="state" class="block text-gray-700 font-medium mb-2">State/Province</label>
+                                <input type="text" id="state" name="state" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label for="zipCode" class="block text-gray-700 font-medium mb-2">Zip/Postal
+                                    Code</label>
+                                <input type="text" id="zipCode" name="zipCode" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div id="locationMap" class="h-64 bg-gray-200 rounded-lg">
+                                <!-- Map will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Budget -->
+                    <div class="md:col-span-2 mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">4. Budget</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="budgetType" class="block text-gray-700 font-medium mb-2">Payment
+                                    Type</label>
+                                <select id="budgetType" name="budgetType" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="hourly">Hourly Rate</option>
+                                    <option value="fixed">Fixed Price</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="budget" class="block text-gray-700 font-medium mb-2">Budget Amount
+                                    ($)</label>
+                                <input type="number" id="budget" name="budget" required min="0" step="0.01"
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Choose Labourer -->
+                    <div class="md:col-span-2 mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">5. Choose Labourer</h2>
+                        <div class="mb-4">
+                            <div class="flex items-center mb-4">
+                                <input type="radio" id="findLabourer" name="labourerSelection" value="find" checked
+                                    class="mr-2">
+                                <label for="findLabourer" class="text-gray-700">Find me a suitable labourer</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="specificLabourer" name="labourerSelection" value="specific"
+                                    class="mr-2">
+                                <label for="specificLabourer" class="text-gray-700">Choose a specific labourer</label>
+                            </div>
+                        </div>
+
+                        <div id="labourerSearchContainer" class="hidden mt-4">
+                            <label for="labourerSearch" class="block text-gray-700 font-medium mb-2">Search for
+                                Labourer</label>
+                            <div class="flex">
+                                <input type="text" id="labourerSearch"
+                                    class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Search by name or skill">
+                                <button type="button"
+                                    class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+
+                            <div class="mt-4 border rounded-lg">
+                                <div class="divide-y">
+                                    <div class="p-4 flex items-center">
+                                        <input type="radio" name="selectedLabourer" value="1" class="mr-3">
+                                        <img src="/api/placeholder/50/50" alt="Labourer Avatar"
+                                            class="h-12 w-12 rounded-full mr-4">
+                                        <div>
+                                            <h4 class="font-medium">Mike Johnson</h4>
+                                            <div class="flex items-center text-yellow-500 text-sm">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span class="text-gray-600 ml-1">4.5 (28 reviews)</span>
+                                            </div>
+                                            <div class="text-sm text-gray-600 mt-1">Plumbing, Electrical • $25/hr</div>
+                                        </div>
+                                        <a href="labour_profile.html" class="ml-auto text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
+                                    <div class="p-4 flex items-center">
+                                        <input type="radio" name="selectedLabourer" value="2" class="mr-3">
+                                        <img src="/api/placeholder/50/50" alt="Labourer Avatar"
+                                            class="h-12 w-12 rounded-full mr-4">
+                                        <div>
+                                            <h4 class="font-medium">Sarah Chen</h4>
+                                            <div class="flex items-center text-yellow-500 text-sm">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span class="text-gray-600 ml-1">5.0 (42 reviews)</span>
+                                            </div>
+                                            <div class="text-sm text-gray-600 mt-1">Electrical, Carpentry • $30/hr</div>
+                                        </div>
+                                        <a href="labour_profile.html" class="ml-auto text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
+                                    <div class="p-4 flex items-center">
+                                        <input type="radio" name="selectedLabourer" value="3" class="mr-3">
+                                        <img src="/api/placeholder/50/50" alt="Labourer Avatar"
+                                            class="h-12 w-12 rounded-full mr-4">
+                                        <div>
+                                            <h4 class="font-medium">David Patel</h4>
+                                            <div class="flex items-center text-yellow-500 text-sm">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <span class="text-gray-600 ml-1">4.0 (15 reviews)</span>
+                                            </div>
+                                            <div class="text-sm text-gray-600 mt-1">Landscaping, General Labour • $22/hr
+                                            </div>
+                                        </div>
+                                        <a href="labour_profile.html" class="ml-auto text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t mt-8 pt-6 flex justify-end">
+                    <button type="submit"
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-300">
+                        Create Booking
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-4">Booking Created Successfully!</h3>
+                <p class="text-gray-600 mt-2">Your booking has been created and will be shared with the selected
+                    labourer.</p>
+                <div class="mt-6">
+                    <button id="viewBookingBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg mr-2">
+                        View Booking
+                    </button>
+                    <button id="closeModalBtn" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+
+    <script>
+        // Initialize date picker
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize date picker
+            flatpickr("#jobDate", {
+                minDate: "today",
+                dateFormat: "Y-m-d",
+                disableMobile: "true"
+            });
+
+            // Initialize time pickers
+            flatpickr("#startTime", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                minTime: "07:00",
+                maxTime: "22:00",
+                disableMobile: "true"
+            });
+
+            flatpickr("#endTime", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                minTime: "07:00",
+                maxTime: "22:00",
+                disableMobile: "true"
+            });
+
+            // Initialize map
+            initMap();
+
+            // Handle labourer selection
+            const findLabourer = document.getElementById('findLabourer');
+            const specificLabourer = document.getElementById('specificLabourer');
+            const labourerSearchContainer = document.getElementById('labourerSearchContainer');
+
+            findLabourer.addEventListener('change', function () {
+                if (this.checked) {
+                    labourerSearchContainer.classList.add('hidden');
+                }
+            });
+
+            specificLabourer.addEventListener('change', function () {
+                if (this.checked) {
+                    labourerSearchContainer.classList.remove('hidden');
+                }
+            });
+
+            // Handle form submission
+            const bookingForm = document.getElementById('bookingForm');
+            const successModal = document.getElementById('successModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const viewBookingBtn = document.getElementById('viewBookingBtn');
+
+            bookingForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Validate form
+                if (validateForm()) {
+                    // Show success modal
+                    successModal.classList.remove('hidden');
+
+                    // Form data could be sent to the server here
+                    const formData = new FormData(bookingForm);
+                    console.log('Form submitted with data:', Object.fromEntries(formData));
+                }
+            });
+
+            // Handle modal buttons
+            closeModalBtn.addEventListener('click', function () {
+                successModal.classList.add('hidden');
+                window.location.href = 'client_dashboard.html';
+            });
+
+            viewBookingBtn.addEventListener('click', function () {
+                successModal.classList.add('hidden');
+                window.location.href = 'booking_details.html?id=new';
+            });
+
+            // Handle logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('Logging out...');
+                window.location.href = 'login.html';
+            });
+        });
+
+        // Initialize map with default location
+        function initMap() {
+            // Check if Leaflet is loaded
+            if (typeof L !== 'undefined') {
+                const map = L.map('locationMap').setView([40.712776, -74.005974], 13);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Add marker for current location
+                const marker = L.marker([40.712776, -74.005974]).addTo(map);
+
+                // Update map when address changes
+                const addressInput = document.getElementById('address');
+                const cityInput = document.getElementById('city');
+                const stateInput = document.getElementById('state');
+
+                const updateMapFromAddress = function () {
+                    const address = `${addressInput.value}, ${cityInput.value}, ${stateInput.value}`;
+
+                    // In a real application, you would use a geocoding service here
+                    // For demo purposes, we'll just update the marker's popup
+                    marker.bindPopup(address).openPopup();
+
+                    console.log('Address updated:', address);
+                };
+
+                addressInput.addEventListener('blur', updateMapFromAddress);
+                cityInput.addEventListener('blur', updateMapFromAddress);
+                stateInput.addEventListener('blur', updateMapFromAddress);
+            } else {
+                document.getElementById('locationMap').innerHTML =
+                    '<div class="flex items-center justify-center h-full text-gray-500">Map loading...</div>';
+            }
+        }
+
+        // Form validation
+        function validateForm() {
+            // Get form elements
+            const jobTitle = document.getElementById('jobTitle').value;
+            const jobCategory = document.getElementById('jobCategory').value;
+            const jobDescription = document.getElementById('jobDescription').value;
+            const jobDate = document.getElementById('jobDate').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+
+            // Basic validation
+            if (!jobTitle || !jobCategory || !jobDescription || !jobDate || !startTime || !endTime) {
+                alert('Please fill in all required fields');
+                return false;
+            }
+
+            // Validate that end time is after start time
+            if (startTime >= endTime) {
+                alert('End time must be after start time');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>
